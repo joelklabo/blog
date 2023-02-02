@@ -1,24 +1,21 @@
-import { FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaTwitter, FaBitcoin } from 'react-icons/fa'
 import { GiOstrich } from 'react-icons/gi'
+import { BsFillLightningChargeFill } from 'react-icons/bs'
 import Link from "next/link"
 export default function Header() {
 	return (
 		<header className="bg-gray-100">
-			<div className="xl:container xl:ml-auto flex flex-col items-center sm:flex-row sm:justify-between text-center py-3 px-4">
+			<div className="xl:container  flex flex-col items-center sm:flex-row sm:justify-between text-center py-3 px-4">
 				<div className="md:flex-none">
 					<Link href={"/"}>
 						<span className="text-2xl">klabo.blog</span>
 					</Link>
 				</div>
 				<div className="flex gap-6">
-					<Link href={"/projects"}>
-						<span>projects</span>
-					</Link>
-					<Link href={"/contact"}>
-						<span>contact</span>
-					</Link>
 					<Link href={"/tip"}>
-						<span>tip</span>
+						<div className="flex items-center">
+							<FaBitcoin /> <span className="pl-2 pr-2">+</span> <BsFillLightningChargeFill />
+						</div>
 					</Link>
 				</div>
 				<div className="flex gap-6">
