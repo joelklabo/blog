@@ -1,15 +1,28 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import Header from '../components/header'
+import Layout from '@/components/layout'
+import { getSortedPostsData } from '@/lib/posts'
+import PostSummary from '@/components/postSummary'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
+export default function Home({ allPostsData }) {
   return (
     <div>
-      <Header />
+      <Layout>
+        {allPostsData.map(({title, date, id}) => (
+          <PostSummary title={title} date={date} key={id} />
+        ))}
+      </Layout>
     </div>
   )
 }
