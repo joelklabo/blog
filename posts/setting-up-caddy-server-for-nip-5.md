@@ -6,12 +6,12 @@ categories: nostr damus
 LNURL: LNURL1DP68GURN8GHJ7MRWVF5HGUEWDDKXZCN09E3XCMM89AKXUATJD3CZ736VWDGX6JQME45TS
 ---
 
-![image](/posts/klabo-nip-5-verification.jpeg)
+![image](/images/klabo-nip-5-verification.jpeg)
 
 In the last post [Adding Nostr NIP-05 Verification to Your Blog (Jekyll)](https://klabo.blog/nostr/damus/2023/01/04/adding-nip-05-verification-to-your-blog.html) I went over the steps for adding NIP-05 verification to your Jekyll blog. See the actual NIP-05 document [here](https://github.com/nostr-protocol/nips/blob/master/05.md). Since then I've updated my setup to fix this common error you may have seen:
 
 
-![image](/posts/jack-nip-5-error.png)
+![image](/images/jack-nip-5-error.png)
 
 
 The issue here is that CORS wasn't set up correctly. You can learn more about [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) if you're interested but for those of you that just want to get it working I'm going to show you what I had to do in my Caddyfile:

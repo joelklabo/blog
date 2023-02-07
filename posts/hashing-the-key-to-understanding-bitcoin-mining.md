@@ -31,7 +31,7 @@ Any data can be hashed, no matter the size, and you will get some number between
 
 Here is a good visual representation from the [Hash Function](https://en.wikipedia.org/wiki/Hash_function) article on Wikipedia:
 
-![image](/assets/hash-table-example.png)
+![image](/images/hash-table-example.png)
 
 ***Why is hashing useful?***
 

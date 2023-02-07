@@ -12,7 +12,7 @@ None of these options appealed to me. I have a node at home but I don't want to 
 
 **LNBits**
 
-![image lnbits](/posts/lnbits-logo.png)
+![image lnbits](/images/lnbits-logo.png)
 
 If you've never heard of LNBits it's described as a "free and open-source lightning-network wallet/accounts system". Links for all thse projects are listed at the bottom BTW. I had heard of it, and actually installed it on an old Umbrel node I had. I think I had opened it up and just decided I didn't have a need for creating accounts within my own Lightning wallet and never really looked at it again. But what I didn't realize is that LNBits is a lot more than just creating multiple wallets or accounts. If you have a Lightning node and want to do some project with it, chances are LNBits can help you do that.
 
@@ -20,7 +20,7 @@ If you've never heard of LNBits it's described as a "free and open-source lightn
 
 What I didn't realize is that when you create a wallet in LNBits you can add extensions to it. 
 
-![image](/posts/lnbits-extensions.png)
+![image](/images/lnbits-extensions.png)
 
 
 There are quite a few extensions available. One of them is actually called "Tip Jar" which sounded like what I was looking for. I actually ended up using LNURLp but that would have worked too.

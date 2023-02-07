@@ -19,7 +19,10 @@ It ended up being more involved than I had originally thought, the initial paylo
 "tag":"payRequest",
 "maxSendable":100000000,
 "minSendable":1000,
-"metadata":"[[\"text/identifier\",\"joel@satoshis.lol\"],[\"text/plain\",\"Satoshis to joel@satoshis.lol.\"]]",
+"metadata":"[
+		[\"text/identifier\",\"joel@satoshis.lol\"],
+		[\"text/plain\",\"Satoshis to joel@satoshis.lol.\"]
+	]",
 "commentAllowed":0
 }
 ```
@@ -51,7 +54,7 @@ The rest of the setup was just setting it up on my VPS but the process was the s
 
 The end result:
 
-![image](/assets/satoshis-lol-screenshot.png)
+![image](/images/satoshis-lol-screenshot.png)
 
 **Conclusion**
 

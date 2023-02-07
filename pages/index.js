@@ -1,8 +1,8 @@
-import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import Layout from '@/components/layout'
 import { getSortedPostsData } from '@/lib/posts'
 import PostSummary from '@/components/postSummary'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +20,9 @@ export default function Home({ allPostsData }) {
     <div>
       <Layout>
         {allPostsData.map(({title, date, id}) => (
-          <PostSummary title={title} date={date} key={id} />
+          <Link href={`posts/${id}`} key={id}>
+            <PostSummary title={title} date={date} key={id} />
+          </Link>
         ))}
       </Layout>
     </div>

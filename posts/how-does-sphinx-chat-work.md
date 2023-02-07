@@ -14,7 +14,7 @@ So at a high level you have bitcoind (or btcd) as the base layer. LND is built o
 
 sphinx-relay itself is a node.js app built with [express](https://github.com/expressjs/express). It acts as a server, it relays messages, boosts, etc. from your client (iOS, desktop, Android) and translates them into Lightning Network payments.
 
-![image](/posts/sphinx-relay-diagram.png)
+![image](/images/sphinx-relay-diagram.png)
 
 ## How Does Sphinx Relay Turn Transactions into Messages?
 
@@ -24,13 +24,13 @@ sphinx-relay takes advantage of an LND feature that allows you to add custom dat
 
 You can see in the code below that `LND.keysendMessage` is being passed a data object. This would be where the message content and recipient etc. go.
 
-![image](/posts/keysend-data-code-snippet.png)
+![image](/images/keysend-data-code-snippet.png)
 
 ## What is a `keysend` Payment versus a Regular Payment?
 
 You may have noticed that these payments are sent as `keysend` payments instead of using invoices like you may be used to with Lightning. You can get the full description [here](https://lightning.readthedocs.io/lightning-keysend.7.html). The gist of it is that keysend is a relatively new feature of LND and coming in c-lightning, that allows you to just send satoshis without an invoice. This is obviously useful when you are sending sats with every message posted.
 
-![image](/posts/lnd-keysend-doc.png)
+![image](/images/lnd-keysend-doc.png)
 
 ## Conclusion
 

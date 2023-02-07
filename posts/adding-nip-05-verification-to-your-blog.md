@@ -6,7 +6,7 @@ categories: nostr damus
 LNURL: LNURL1DP68GURN8GHJ7MRWVF5HGUEWDDKXZCN09E3XCMM89AKXUATJD3CZ7322G9F45MGQ7FKCZ
 ---
 
-![image](/posts/nostrich.jpg)
+![image](/images/nostrich.jpg)
 
 I've been playing around with Nostr recently. I've used Damus (iOS app) almost exclusively to try it out. It's been really fun and recently that client added the ability to verify yourself by hosting your Nostr public key on a domain you own. See the actual NIP-05 document [here](https://github.com/nostr-protocol/nips/blob/master/05.md).
 
