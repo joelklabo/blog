@@ -5,7 +5,7 @@ export default function Layout({children, title}) {
 	return (
 		<div>
 			<Head>
-				<link rel="shortcut icon" href="/images/favicon.ico" />
+				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{ title }</title>
 			</Head>
 			<Header />
