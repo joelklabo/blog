@@ -1,6 +1,7 @@
 import { getAllPostIds, getPostData } from "@/lib/posts";
 import Layout from "@/components/layout";
 import Date from "@/components/date";
+import TipFooter from "@/components/tipFooter";
 
 export async function getStaticPaths() {
 	const paths = getAllPostIds()
@@ -21,7 +22,7 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ postData }) {
 	return (
-		<Layout>
+		<Layout title={postData.title}>
 			<div className="prose">
 				<h1>{postData.title}</h1>
 				<div>
@@ -29,6 +30,7 @@ export default function Post({ postData }) {
 				</div>
 				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 			</div>
+			<TipFooter LNURL={postData.LNURL} />
 		</Layout>
 	)
 }

@@ -18,7 +18,7 @@ export async function getStaticProps() {
 export default function Home({ allPostsData }) {
   return (
     <div>
-      <Layout>
+      <Layout title="klabo.blog">
         {allPostsData.map(({title, date, id}) => (
           <Link href={`posts/${id}`} key={id}>
             <PostSummary title={title} date={date} key={id} />
