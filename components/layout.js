@@ -7,6 +7,7 @@ export default function Layout({children, title}) {
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{ title }</title>
+				<meta name="theme-color" content="#FEF9C3" />
 			</Head>
 			<Header />
 			<main className="px-6 py-12 max-w-2xl content-center m-auto">
