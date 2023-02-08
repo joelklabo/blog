@@ -1,7 +1,7 @@
 export default function handler(req, res) {
 	const { user } = req.query
 	const response = {
-		"callback": "https://klabo.blog/api/lurlp",
+		"callback": "https://klabo.blog/api/lurlp/address",
 		"maxSendable": 400000000,
 		"minSendable": 1000,
 		"metadata": [
