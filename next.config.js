@@ -7,6 +7,10 @@ const nextConfig = {
         source: "/.well-known/nostr.json",
         destination: "/api/.well-known/nostr"
       },
+      {
+        source: "/.well-known/lnurlp/:user",
+        destination: "/api/lnurlp/address"
+      }
     ];
   },
 };
