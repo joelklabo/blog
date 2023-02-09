@@ -4,10 +4,7 @@ export default function handler(req, res) {
 		"callback": "https://klabo.blog/api/lurlp/invoice",
 		"maxSendable": 400000000,
 		"minSendable": 1000,
-		"metadata": [
-			["text/identifier", "joel@klabo.blog"],
-			["text/plain", "Sending sats to joel@klabo.blog"]
-		],
+		"metadata": "[[\"text/identifier\",\"joel@klabo.blog\"],[\"text/plain\",\"Send sats to joel@klabo.blog\"]]",	
 		commentAllowed: 500,
 		tag: "payRequest"
 	}
