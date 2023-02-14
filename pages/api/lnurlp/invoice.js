@@ -13,7 +13,8 @@ export default async function handler(req, res) {
 		out: false,
 	})
 	const repsonse = {
-		"pr": newInvoice.payment_request
+		"pr": newInvoice.payment_request,
+		"routes": []
 	}
 	res.status(200).json(repsonse)
 }
