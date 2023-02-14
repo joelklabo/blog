@@ -7,9 +7,8 @@ const { wallet } = LNBits({
 });
 
 export default async function handler(req, res) {
-	console.log(req)
 	const newInvoice = await wallet.createInvoice({
-		amount: 10,
+		amount: req.query.amount,
 		memo: 'test',
 		out: false,
 	})
