@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 		out: false,
 	})
 	const repsonse = {
-		"pr": newInvoice.payment_request,
+		"pr": newInvoice.lnurl_response,
 		"routes": []
 	}
 	res.status(200).json(repsonse)
