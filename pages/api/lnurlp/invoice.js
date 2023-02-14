@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 	})
 	console.log(newInvoice)
 	const repsonse = {
-		"pr": newInvoice,
+		"pr": newInvoice.payment_request,
 		"routes": []
 	}
 	res.status(200).json(repsonse)
