@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 		origin: '*',
 		optionsSuccessStatus: 200
 	})
-
+	console.log(req.query)
 	const newInvoice = await wallet.createInvoice({
 		amount: req.query.amount,
 		memo: `Description: ${Date.now()}`,
