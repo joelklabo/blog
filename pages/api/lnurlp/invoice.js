@@ -20,8 +20,9 @@ export default async function handler(req, res) {
 		memo: `Description: ${Date.now()}`,
 		out: false,
 	})
+	console.log(newInvoice)
 	const repsonse = {
-		"pr": newInvoice.lnurl_response,
+		"pr": newInvoice,
 		"routes": []
 	}
 	res.status(200).json(repsonse)
