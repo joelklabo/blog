@@ -1,4 +1,5 @@
 import LNBits from 'lnbits';
+import NextCors from 'nextjs-cors';
 
 const { wallet } = LNBits({
   adminKey: process.env.LNBITS_ADMIN_KEY,
@@ -7,6 +8,13 @@ const { wallet } = LNBits({
 });
 
 export default async function handler(req, res) {
+
+	await NextCors(req, res, {
+		methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+		origin: '*',
+		optionsSuccessStatus: 200
+	})
+
 	const newInvoice = await wallet.createInvoice({
 		amount: req.query.amount,
 		memo: "Description: ${Date.now()}",
