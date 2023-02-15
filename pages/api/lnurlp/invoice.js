@@ -13,7 +13,6 @@ export default async function handler(req, res) {
 	})
 	
 	lnAddress.invoice(req.query.amount, (response) => {
-		console.log(res);
 		const payload = {
 			"pr": response.result.bolt11,
 			"routes": []
