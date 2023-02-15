@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 	lnAddress.invoice(req.query.amount, (bolt11) => {
 		if (bolt11 !== 'undefined') {
 			const payload = {
-				"pr": response.result.bolt11,
+				"pr": bolt11,
 				"routes": []
 			}
 			res.status(200).json(payload)
