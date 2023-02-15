@@ -2,6 +2,7 @@ import { getAllPostIds, getPostData } from "@/lib/posts";
 import Layout from "@/components/layout";
 import Date from "@/components/date";
 import TipFooter from "@/components/tipFooter";
+import CreateInvoice from "@/components/createInvoice";
 
 export async function getStaticPaths() {
 	const paths = getAllPostIds()
