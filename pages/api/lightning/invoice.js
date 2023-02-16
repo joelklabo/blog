@@ -2,7 +2,7 @@ import NextCors from "nextjs-cors";
 import LightningRPC from "@/lib/lightning/rpc";
 
 export default async function handler(req, res) {
-	const rpc = new LightningRPC('/home/azureuser/.lightning/bitcoin/lightning-rpc');
+	const rpc = new LightningRPC(`${process.env.LIGHTNING_RPC}`);
 
 	const body = JSON.parse(req.body);
 

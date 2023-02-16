@@ -14,7 +14,6 @@ export default async function handler(req, res) {
 		const paidInvoices = invoices.filter((invoice) => {
 			return invoice.status === 'paid';
 		}).reverse();
-		console.log(paidInvoices[0]);
 		res.status(200).json({ paidInvoices: paidInvoices });
 	}).catch((error) => {
 		res.status(400).json({ error: "Failed to get invoices" });

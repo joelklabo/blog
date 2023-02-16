@@ -21,7 +21,6 @@ export default function CreateInvoice({ LNURL }) {
 		});
 
 		const json = await response.json();
-		console.log(json);
 		setBolt11(json.bolt11);
 		resetForm();
 	};
