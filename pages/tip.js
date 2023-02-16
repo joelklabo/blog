@@ -3,7 +3,7 @@ import PaidInvoices from "@/components/paidInvoices";
 import TipFooter from "@/components/tipFooter";
 
 export async function getServerSideProps() {
-	const res = await fetch(`${process.env.BASE_URL}/api/lightning/pays`);
+	const res = await fetch(`https://${process.env.BASE_URL}/api/lightning/pays`);
 	const result = await res.json();
 	return {
 		props: {
