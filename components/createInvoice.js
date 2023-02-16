@@ -28,23 +28,23 @@ export default function CreateInvoice({ LNURL }) {
 	
 	return (
 		<>
-			<div class="max-w-md py-12 m-auto">
-				<h1 class="text-3xl font-bold mb-4">Leave a tip</h1>
-				<form class="mb-6" onSubmit={createInvoice}>
-					<div class="flex flex-col mb-4">
-						<label class="mb-2 uppercase font-bold text-grey-darkest" htmlFor="amount">Amount (in satoshis)</label>
-						<input class="border py-2 px-3 text-grey-darkest" type="number" name="amount" id="amount" />
+			<div className="max-w-md py-12 m-auto">
+				<h1 className="text-3xl font-bold mb-4">Leave a tip</h1>
+				<form className="mb-6" onSubmit={createInvoice}>
+					<div className="flex flex-col mb-4">
+						<label className="mb-2 uppercase font-bold text-grey-darkest" htmlFor="amount">Amount (in satoshis)</label>
+						<input className="border py-2 px-3 text-grey-darkest" type="number" name="amount" id="amount" />
 					</div>
-					<div class="flex flex-col mb-4">
-						<label class="mb-2 uppercase font-bold text-grey-darkest" htmlFor="description">Message</label>
-						<input class="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description" placeholder="Leave a message and I'll put in on my leaderboard" />
+					<div className="flex flex-col mb-4">
+						<label className="mb-2 uppercase font-bold text-grey-darkest" htmlFor="description">Message</label>
+						<input className="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description" placeholder="Leave a message and I'll put in on my leaderboard" />
 					</div>
-					<div class="flex flex-col mb-6 py-6">
-						<button class="block bg-yellow-300 hover:bg-yellow-400 uppercase text-lg mx-auto p-4 rounded" type="submit">Create Invoice</button>
+					<div className="flex flex-col mb-6 py-6">
+						<button className="block bg-yellow-300 hover:bg-yellow-400 uppercase text-lg mx-auto p-4 rounded" type="submit">Create Invoice</button>
 					</div>
 				</form>
 				{ bolt11 ? ( 
-					<QRCodeCanvas value={bolt11} className="m-auto" />
+					<QRCodeCanvas value={bolt11} classNameName="m-auto" />
 				) : (<></>)}
 			</div>
 		</>

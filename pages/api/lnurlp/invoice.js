@@ -1,5 +1,5 @@
 import NextCors from 'nextjs-cors';
-import LightningAddress from '@/lib/lightningAddress';
+import LightningAddress from '@/lib/lightning/address';
 
 
 export default async function handler(req, res) {
