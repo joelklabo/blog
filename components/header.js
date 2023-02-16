@@ -4,7 +4,7 @@ import { BsFillLightningChargeFill } from 'react-icons/bs'
 import Link from "next/link"
 export default function Header() {
 	return (
-		<header className="bg-yellow-100">
+		<header className="bg-yellow-200">
 			<div className="flex flex-col items-center sm:flex-row justify-between text-center py-3 px-12">
 				<div className="md:flex-none">
 					<Link href={"/"}>
