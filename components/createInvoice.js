@@ -12,7 +12,7 @@ export default function CreateInvoice({ LNURL }) {
 			const amount = data.get("amount");
 			const description = data.get("description");
 
-			const response = await fetch('/api/invoice', {
+			const response = await fetch('/api/lightning/invoice', {
 				method: "POST",
 				body: JSON.stringify({
 					amount: amount,
