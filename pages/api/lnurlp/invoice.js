@@ -1,5 +1,5 @@
 import NextCors from 'nextjs-cors';
-import LightningAddress from '@/lib/lightningAddress';
+import LightningAddress from '@/lib/lightning/address';
 
 
 export default async function handler(req, res) {
@@ -12,15 +12,14 @@ export default async function handler(req, res) {
 		optionsSuccessStatus: 200
 	})
 	
-	lnAddress.invoice(req.query.amount, (bolt11) => {
-		if (bolt11 !== 'undefined') {
-			const payload = {
-				"pr": bolt11,
-				"routes": []
-			}
-			res.status(200).json(payload)
-		} else {
-			res.status(400).json({ error: "Failed to create invoice" });
+	await lnAddress.invoice(req.query.amount).then((bolt11) => {
+		const payload = {
+			"pr": bolt11,
+			"routes": []
 		}
+		res.status(200).json(payload);
+	}).catch((error) => {
+		console.log("LA Invoice creation failed:\n", error);
+		res.status(400).json({ error: "Failed to create invoice" });
 	});
 }
