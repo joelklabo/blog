@@ -11,8 +11,25 @@ export default async function handler(req, res) {
 		origin: '*',
 		optionsSuccessStatus: 200
 	})
-	
-	await lnAddress.invoice(req.query.amount).then((bolt11) => {
+
+	if (!req.query.amount) {
+		res.status(400).json({ error: "Missing amount" });
+		return;
+	}
+
+	if (req.query.amount < 1000) {
+		res.status(400).json({ error: "Amount too low" });
+		return;
+	}
+
+	if (req.query.amount > 100000000) {
+		res.status(400).json({ error: "Amount too high" });
+		return;
+	}
+
+	const query = req.query;
+
+	await lnAddress.invoice(query.amount, query.nostr).then((bolt11) => {
 		const payload = {
 			"pr": bolt11,
 			"routes": []
