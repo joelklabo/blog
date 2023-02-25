@@ -1,5 +1,6 @@
 import NextCors from "nextjs-cors";
 import LightningRPC from "@/lib/lightning/rpc";
+import { PaidInvoice } from "@/models/paidInvoice";
 import Metadata from "@/lib/lightning/metadata";
 
 export default async function handler(req, res) {
@@ -17,10 +18,7 @@ export default async function handler(req, res) {
 			return invoice.status === 'paid';
 		})
 		.map((invoice) => {
-			if (invoice.description === metadata.metadataString) {
-				invoice.description = "⚡️ Tip";
-			}
-			return invoice;
+			return PaidInvoice(invoice, metadata);
 		})
 		.reverse();
 		res.status(200).json({ paidInvoices: paidInvoices});

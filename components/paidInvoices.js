@@ -19,7 +19,7 @@ export default function PaidInvoices({paidInvoices}) {
 			</thead>
 			 <tbody>
 				{paidInvoices.map((paidInvoice) => (
-					<PaidInvoice paidInvoice={paidInvoice} key={paidInvoice.payment_hash} />
+					<PaidInvoice paidInvoice={paidInvoice} key={paidInvoice.date} />
 				))};
 			</tbody>
 			</table>
