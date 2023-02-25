@@ -1,26 +1,44 @@
 import Metadata from "../lib/lightning/metadata";
 
+export const NostrType = 'nostr';
+export const TipType = 'tip';
+export const KeysendType = 'keysend';
+export const DefaultType = 'default';
+
 export const PaidInvoice = (invoice, metadata) => {
 
+	const result = {};
 	const amount = invoice.msatoshi / 1000;
 	const date = invoice.paid_at;
+	const message = invoice.description;
 
-	const description = (function () {
-		try {
-			const json = JSON.parse(invoice.description);
-			if (json.pubkey) {
-				return `⚡️ Zap from ${json.pubkey}`;
-			} else if (invoice.description === metadata.metadataString) {
-				return "⚡️ Tip";
-			} else {
-				console.log(invoice)
-				console.log(metadata.metadataString)
-			}
-		} catch (error) {
-			// Do nothing, not a zap
+	try {
+		const json = JSON.parse(invoice.description);
+		if (json.pubkey) {
+			result.type = NostrType;
+			result.pubkey = json.pubkey;
+			result.amount = amount;
+			result.date = date;
+			result.message = message;
+			return result;
 		}
-		return invoice.description;
-	})();
+	} catch (error) {
+		// Do nothing, not a zap
+	}
 
-	return {date: date, description: description, amount: amount};
+	if (invoice.description.includes("text/identifier")) {
+		result.type = TipType;
+		result.amount = amount; 
+	} else if (invoice.description.includes("keysend")) {
+		result.type = KeysendType;
+		result.amount = invoice.msatoshi_received / 1000;
+	} else {
+		result.type = DefaultType;
+		result.amount = amount; 
+	}
+	
+	result.date = date;
+	result.message = message;
+	
+	return result;
 }

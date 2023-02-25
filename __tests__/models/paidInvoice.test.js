@@ -1,4 +1,4 @@
-import { PaidInvoice } from "../../models/paidInvoice";
+import { PaidInvoice, NostrType, TipType, KeysendType, DefaultType } from "../../models/paidInvoice";
 import Metadata from "../../lib/lightning/metadata";
 
 const nostrInvoice = {
@@ -38,24 +38,47 @@ const normalInvoice = {
 	"description": "test nostrify",
 	"expires_at": 1676521927
 }
+
+const keysendInvoice = {
+	"label": "keysend-1677300041.477207080",
+	"bolt11": "lnbc1p3lny2fsp5ws8qxq86v8hzcwhdk4sx0rcuvuwg703gztpka4ayke2l2nfsvmuspp5ch396afgldqgutzp95hg0ytkf884hm45qe4suz4ws225hacgq8yqdcvddjhjum9dejr5gzrdpjkx6eqda6hggrd0ysxummyv5sjq4r0deu4xmreyqcryvtzx4skgwpsxumnsdpsxsckyvr9xccnqdrxx3jnvetrxv6k2c3jxy6nvdfev3nrvv35x5mnxepj8qcxzef3vf3xxv3svdnrsvfkvvuzq2zdv9exkgrnv4jkuw3qd3hxyce3xphrzupnd3h8jv3ewpcr2drhwdnnyvmkdvuk6ut6vacn2v3jvumk2ersxfm8sun3v33kcap4vveh5uttxqcxswt9d3exc6r3w9nrwatnv3ex5dm6xpjhyutsw9u8zetwwemhqmncwp48yemhwfuhsafkwfm8wup50pnx57revdjks7r8xee8samj09uxg6nt09mx2drkwekhyuthw3c8scm4wfmkxet98pc8xmnev46rj7rrw4eryan9x4uxwcmj0fjkuupcw9jhyemyxdhrsupnde4x2vm9weekxut6wpnhsutevsuk6mrnwq6hjatrv4erwent0fjkgdnswgc8qep4wdehgdnvdenryerxdd3hzwpn0gek2emdv56xsatpxeu8x7tpv9urqueew9uhjumnw9khvam2v3shvdr3dcukwve4xfmhgemtw93nvancwucrym3ex3e8gmrd8qmku6p5v4jrgmrh0paxvufcdf68sdtewpkkkatrw5ehgatyxd5xcwrndf4hydnjdcehyeredd6kkcmyxasnyut2we6hs6psxpj8jwtt09excut3x56kk7pewq5sxqyjw5qcqpjrzjqfhv8c6rsvy9rxn4efzfdq32ds0z9yt5l092mm43w3cycdm3ztpnzze2dvqqyhsqqyqqqqlgqqqqpjqq9q9qyysgqzpp85vdx7yvtnawm7vth6l0hpn4l36tx6mffkv3gkek0n7d80gahn7f6d0z5j0k0c76u89rz9xnpnvfzq6kygrxkptwvfcecry8vv6sq92x9yl",
+	"payment_hash": "c5e25d7528fb408e2c412d2e87917649cf5beeb4066b0e0aae82954bf70801c8",
+	"status": "paid",
+	"pay_index": 98,
+	"msatoshi_received": 10000,
+	"amount_received_msat": "10000msat",
+	"paid_at": 1677300041,
+	"payment_preimage": "3a5b461184fbb32dea932f2e5adccec94caa16459e8456dde385307c0f3da661",
+	"description": "keysend: Check out my node! TonySly 021b5ad807784041b0e6104f4e6ec35eb215659df624573d280ae1bbc20cf816c8 (Mark seen: lnbc10n1p3lny29pp54wsg23vk9mqzgq522g7edp2vxrqdclt5c3zqk00h9elrlhqqf7usdrj7z0erqpqxqenvwpnxpjrgwryxu6rvwp4xfjxycehxg6rxwryxdjkyve4vvmrqwtpxcurwcee8psnyet9xcur2ve5xgcrzenp8qergd3n8p3nje3evscqzpgxqyd9mlsp5yucer7fkzed6pr0pd5sst6lnf2dfkcq83z3egme4hua6xsyaax0s9qyyssqmvwjdav4qn9g352wtgkqc6vxw02n94rtlm87nh4ed4lwxzfq8jtx5ypmkucu3tud3hl8sjkr6rn3rdykukcd7a2qjvuxh00dy9kyrlqq55kx9p)",
+	"expires_at": 1677904841
+}
  
 const metadata = new Metadata();
 
 describe('Paid Invoice', function() {
-	it('should be created', function() {
-		const paidNostrInvoice = PaidInvoice(nostrInvoice, metadata);
+	it('should parse nostr type invoices', function() {
+		const paidNostrInvoice = PaidInvoice(nostrInvoice);
 		expect(paidNostrInvoice).toBeDefined();
-		const paidLAInvoice = PaidInvoice(lightningAddressInvoice, metadata);
-		expect(paidLAInvoice).toBeDefined();
-		const normalPaidInvoice = PaidInvoice(normalInvoice, metadata);
-		expect(normalPaidInvoice).toBeDefined();
+		expect(paidNostrInvoice.type).toEqual(NostrType);
+		expect(paidNostrInvoice.pubkey).toEqual('3f751c3eeb89898a7bc4946575279e687f27f043bfdcf7fc082f1c21381a49ca');
+		expect(paidNostrInvoice.amount).toEqual(21);
 	});
-	it('should have the correct description', function() {
-		const paidNostrInvoice = PaidInvoice(nostrInvoice, metadata);
-		expect(paidNostrInvoice.description).toEqual('⚡️ Zap from 3f751c3eeb89898a7bc4946575279e687f27f043bfdcf7fc082f1c21381a49ca');
-		const paidLAInvoice = PaidInvoice(lightningAddressInvoice, metadata);
-		expect(paidLAInvoice.description).toEqual('⚡️ Tip');
-		const normalPaidInvoice = PaidInvoice(normalInvoice, metadata);
-		expect(normalPaidInvoice.description).toEqual('test nostrify');
+	it('should parse lightnint address type invoices', function() {
+		const paidLAInvoice = PaidInvoice(lightningAddressInvoice);
+		expect(paidLAInvoice).toBeDefined();
+		expect(paidLAInvoice.type).toEqual(TipType);
+		expect(paidLAInvoice.amount).toEqual(1000);
+	});
+	it('should parse keysend invoices', function() {
+		const keysendPaidInvoice = PaidInvoice(keysendInvoice);
+		expect(keysendPaidInvoice).toBeDefined();
+		expect(keysendPaidInvoice.type).toEqual(KeysendType);
+		expect(keysendPaidInvoice.amount).toEqual(10);
+	});
+	it('should parse normal invoices', function() {
+		const normalPaidInvoice = PaidInvoice(normalInvoice);
+		expect(normalPaidInvoice).toBeDefined();
+		expect(normalPaidInvoice.type).toEqual(DefaultType);
+		expect(normalPaidInvoice.amount).toEqual(1);
 	});
 });
