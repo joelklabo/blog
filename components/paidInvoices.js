@@ -2,8 +2,7 @@ import PaidInvoice from "./paidInvoice"
 
 export default function PaidInvoices({paidInvoices}) {
 	return (
-		<div class="overflow-auto">
-		<table class="table-fixed w-full text-sm text-left text-gray-500">
+		<table class="table-auto w-full text-sm text-left text-gray-500">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-100">
 				<tr>
 						<th scope="col" class="px-6 py-3">
@@ -22,7 +21,6 @@ export default function PaidInvoices({paidInvoices}) {
 					<PaidInvoice paidInvoice={paidInvoice} key={paidInvoice.date} />
 				))};
 			</tbody>
-			</table>
-		</div>
+		</table>
 	)
 }
