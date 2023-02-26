@@ -1,11 +1,14 @@
 import NextCors from "nextjs-cors";
 import LightningRPC from "@/lib/lightning/rpc";
 import { PaidInvoice } from "@/models/paidInvoice";
-import Metadata from "@/lib/lightning/metadata";
+import UsernameCache from "@/lib/util/usernameCache";
+const path = require('path');
 
 export default async function handler(req, res) {
 	const rpc = new LightningRPC(`${process.env.LIGHTNING_RPC}`);
-	const metadata = new Metadata();
+
+  const usernameDataPath = path.join(process.cwd(), 'data/nostr/usernames.json');
+	const usernameCache = new UsernameCache(usernameDataPath);
 
 	await NextCors(req, res, {
 		methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
@@ -18,7 +21,7 @@ export default async function handler(req, res) {
 			return invoice.status === 'paid';
 		})
 		.map((invoice) => {
-			return PaidInvoice(invoice, metadata);
+			return PaidInvoice(invoice, usernameCache);
 		})
 		.reverse();
 		res.status(200).json({ paidInvoices: paidInvoices});

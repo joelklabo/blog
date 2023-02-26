@@ -1,5 +1,7 @@
 import { DefaultType, KeysendType, NostrType, TipType } from "@/models/paidInvoice";
 import RelativeDate from "./relativeDate";
+import { useState, useEffect } from "react";
+import { query } from "@/lib/nostr/query";
 
 export default function PaidInvoice({paidInvoice}) {
 	return (
@@ -29,8 +31,37 @@ export default function PaidInvoice({paidInvoice}) {
 }
 
 function NostrMessage({paidInvoice}) {
+
+	const [displayName, setDisplayName] = useState(paidInvoice.pubkey);
+
+	useEffect(() => {
+		if (paidInvoice.username) {
+			setDisplayName(paidInvoice.username);
+		} else {
+			setDisplayName(paidInvoice.pubkey.slice(0, 32) + '...');
+
+			const fetchUsername = async () => {
+				await query(1, [0], [paidInvoice.pubkey]).then((ev) => {
+					const content = ev.content
+					const json = JSON.parse(content)
+					const username = json.display_name || json.name
+					if (username) {
+						setDisplayName(username)
+					}
+				}).catch((err) => {
+					console.log(err)
+				});
+			}
+
+			fetchUsername()
+			.catch((err) => {
+				console.log(err)
+			});
+		}
+	}, []);
+	
 	return (
-		<span>⚡️ Zap from {paidInvoice.pubkey.slice(0, 32)}...</span>
+		<span>⚡️ Zap from <b>{displayName}</b></span>
 	)
 };
 

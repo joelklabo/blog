@@ -8,7 +8,8 @@ const createJestConfig = nextJest({
 const customJestConfig = {
 	moduleDirectories: ['node_modules', __dirname],
 	testEnvironment: 'node',
-	setupFiles: ['dotenv/config']
+	setupFiles: ['dotenv/config'],
+	modulePathIgnorePatterns: ["data"]
 };
 
 module.exports = createJestConfig(customJestConfig);

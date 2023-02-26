@@ -1,11 +1,9 @@
-import Metadata from "../lib/lightning/metadata";
-
 export const NostrType = 'nostr';
 export const TipType = 'tip';
 export const KeysendType = 'keysend';
 export const DefaultType = 'default';
 
-export const PaidInvoice = (invoice, metadata) => {
+export const PaidInvoice = (invoice, usernameCache) => {
 
 	const result = {};
 	const amount = invoice.msatoshi / 1000;
@@ -20,6 +18,9 @@ export const PaidInvoice = (invoice, metadata) => {
 			result.amount = amount;
 			result.date = date;
 			result.message = message;
+			if (usernameCache.get(json.pubkey)) {
+				result.username = usernameCache.get(json.pubkey);
+			}
 			return result;
 		}
 	} catch (error) {

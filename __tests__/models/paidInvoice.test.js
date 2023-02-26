@@ -1,5 +1,6 @@
 import { PaidInvoice, NostrType, TipType, KeysendType, DefaultType } from "../../models/paidInvoice";
-import Metadata from "../../lib/lightning/metadata";
+import UsernameCache from "../../lib/util/usernameCache";
+const path = require('path');
 
 const nostrInvoice = {
 	"label": "28355fff963ec8b3dd9f42ab415060e5",
@@ -14,6 +15,22 @@ const nostrInvoice = {
 	"paid_at": 1677074828,
 	"payment_preimage": "0df3e5bc1fe8896921232e6f3cd67faca36f719a8e96428ad24f5f5b63448fc2",
 	"description": "{\"pubkey\":\"3f751c3eeb89898a7bc4946575279e687f27f043bfdcf7fc082f1c21381a49ca\",\"content\":\"\",\"id\":\"565966b8eef7166993de95951b44be3c7b9d90de52751ec724ffab8c82a75b32\",\"created_at\":1677074821,\"sig\":\"124d1127c5c70a9971344203cd1a8e6b74f034581ebc4f20c1290a188bbd7933df2627c3c740ec0ef79e949af14182ae03e1d3239440a5b43350904a307c609f\",\"kind\":9734,\"tags\":[[\"e\",\"fe255b67a14413f391f9fe670b465530119ffad8fcd97bec1d670f2f12f9b572\"],[\"p\",\"2f4fa408d85b962d1fe717daae148a4c98424ab2e10c7dd11927e101ed3257b2\"],[\"relays\",\"wss://relay.damus.io\",\"wss://eden.nostr.land\",\"wss://relay.snort.social\",\"wss://nos.lol\",\"wss://relay.current.fyi\",\"wss://brb.io\",\"wss://nostr.plebchain.org\",\"wss://nostr.oxtr.dev\",\"wss://nostr.uselessshit.co\",\"wss://nostr.milou.lol\"]]}",
+	"expires_at": 1677679621
+}
+
+const nostrInvoiceNoUsername = {
+	"label": "28355fff963ec8b3dd9f42ab415060e5",
+	"bolt11": "lnbc210n1p3lvgv9sp5ascsa9yfjfm84c2nddk4lzmsjtkkse98hxyaxj36hxna4ynjfyyqpp5gj0dw0m80gnq24aaftw3a7xtj0sz9w27rwej3z5r8mwp54mks4mshp5gvgm2vk564w4d8c840d7urdmu65xz6y4q8xpa8lhc2fe9mu65nvsxqyjw5qcqpjrzjqd5rp4ydw3599k78ysud86e4ccy6dp7f3ghwdpf5yq06sfrr3j0e6z76msqq98cqqqqqqqqqqqqqqqqqyg9qyysgqk5p56vqefyea03zdnf3llx90nz0ql7vu6e90xg2t7elna5pg9hqj7ujtqg5r46vh036txsx3hgxymny74j48mt8a7s48f4chxnmxwhcpg6ff74",
+	"payment_hash": "449ed73f677a260557bd4add1ef8cb93e022b95e1bb3288a833edc1a57768577",
+	"msatoshi": 21000,
+	"amount_msat": "21000msat",
+	"status": "paid",
+	"pay_index": 231,
+	"msatoshi_received": 21000,
+	"amount_received_msat": "21000msat",
+	"paid_at": 1677074828,
+	"payment_preimage": "0df3e5bc1fe8896921232e6f3cd67faca36f719a8e96428ad24f5f5b63448fc2",
+	"description": "{\"pubkey\":\"somepubkey\",\"content\":\"\",\"id\":\"565966b8eef7166993de95951b44be3c7b9d90de52751ec724ffab8c82a75b32\",\"created_at\":1677074821,\"sig\":\"124d1127c5c70a9971344203cd1a8e6b74f034581ebc4f20c1290a188bbd7933df2627c3c740ec0ef79e949af14182ae03e1d3239440a5b43350904a307c609f\",\"kind\":9734,\"tags\":[[\"e\",\"fe255b67a14413f391f9fe670b465530119ffad8fcd97bec1d670f2f12f9b572\"],[\"p\",\"2f4fa408d85b962d1fe717daae148a4c98424ab2e10c7dd11927e101ed3257b2\"],[\"relays\",\"wss://relay.damus.io\",\"wss://eden.nostr.land\",\"wss://relay.snort.social\",\"wss://nos.lol\",\"wss://relay.current.fyi\",\"wss://brb.io\",\"wss://nostr.plebchain.org\",\"wss://nostr.oxtr.dev\",\"wss://nostr.uselessshit.co\",\"wss://nostr.milou.lol\"]]}",
 	"expires_at": 1677679621
 }
 
@@ -52,15 +69,23 @@ const keysendInvoice = {
 	"description": "keysend: Check out my node! TonySly 021b5ad807784041b0e6104f4e6ec35eb215659df624573d280ae1bbc20cf816c8 (Mark seen: lnbc10n1p3lny29pp54wsg23vk9mqzgq522g7edp2vxrqdclt5c3zqk00h9elrlhqqf7usdrj7z0erqpqxqenvwpnxpjrgwryxu6rvwp4xfjxycehxg6rxwryxdjkyve4vvmrqwtpxcurwcee8psnyet9xcur2ve5xgcrzenp8qergd3n8p3nje3evscqzpgxqyd9mlsp5yucer7fkzed6pr0pd5sst6lnf2dfkcq83z3egme4hua6xsyaax0s9qyyssqmvwjdav4qn9g352wtgkqc6vxw02n94rtlm87nh4ed4lwxzfq8jtx5ypmkucu3tud3hl8sjkr6rn3rdykukcd7a2qjvuxh00dy9kyrlqq55kx9p)",
 	"expires_at": 1677904841
 }
+const dataPath = path.join(__dirname, '../data/usernames.json');
+const usernameCache = new UsernameCache(dataPath);
  
-const metadata = new Metadata();
-
 describe('Paid Invoice', function() {
-	it('should parse nostr type invoices', function() {
-		const paidNostrInvoice = PaidInvoice(nostrInvoice);
+	it('should parse nostr type invoices with available username', function() {
+		const paidNostrInvoice = PaidInvoice(nostrInvoice, usernameCache);
 		expect(paidNostrInvoice).toBeDefined();
 		expect(paidNostrInvoice.type).toEqual(NostrType);
 		expect(paidNostrInvoice.pubkey).toEqual('3f751c3eeb89898a7bc4946575279e687f27f043bfdcf7fc082f1c21381a49ca');
+		expect(paidNostrInvoice.amount).toEqual(21);
+	});
+	it('should parse nostr type invoices without available username', function() {
+		const paidNostrInvoice = PaidInvoice(nostrInvoiceNoUsername, usernameCache);
+		expect(paidNostrInvoice).toBeDefined();
+		expect(paidNostrInvoice.type).toEqual(NostrType);
+		expect(paidNostrInvoice.pubkey).toEqual('somepubkey');
+		expect(paidNostrInvoice.username).toBeUndefined();
 		expect(paidNostrInvoice.amount).toEqual(21);
 	});
 	it('should parse lightnint address type invoices', function() {
