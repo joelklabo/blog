@@ -2,8 +2,8 @@ import PaidInvoice from "./paidInvoice"
 
 export default function PaidInvoices({paidInvoices}) {
 	return (
-		<table class="table-auto w-full text-sm text-left text-gray-500">
-			<thead class="text-xs text-gray-700 uppercase bg-gray-100">
+		<table className="table-auto w-full text-sm text-left text-gray-500">
+			<thead className="text-xs text-gray-700 uppercase bg-gray-100">
 				<tr>
 						<th scope="col" class="px-6 py-3">
 							Date 
