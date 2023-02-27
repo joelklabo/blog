@@ -5,11 +5,11 @@ import { query } from "@/lib/nostr/query";
 
 export default function PaidInvoice({paidInvoice}) {
 	return (
-		<tr class="bg-white border-b">
-			<th scope="row" class="px-6 py-4 font-medium text-gray-900">
+		<tr className="bg-white border-b">
+			<th scope="row" className="px-6 py-4 font-medium text-gray-900">
 				<RelativeDate dateString={paidInvoice.date} />
 			</th>
-			<td class="px-6 py-4 truncate break-words">
+			<td className="px-6 py-4 truncate break-words">
 			{(() => {
         switch (paidInvoice.type) {
           case NostrType:
@@ -23,7 +23,7 @@ export default function PaidInvoice({paidInvoice}) {
         }
       })()}
 			</td>
-			<td class="px-6 py-4 text-right">
+			<td className="px-6 py-4 text-right">
 				{paidInvoice.amount}
 			</td>
 		</tr>

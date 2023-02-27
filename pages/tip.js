@@ -14,7 +14,7 @@ export async function getServerSideProps() {
 
 export default function Tip({ paidInvoices}) {
 	return (
-		<div class="overflow-hidden">
+		<div className="overflow-hidden">
 			<Layout title="Tips">
 				<TipFooter />
 				<PaidInvoices paidInvoices={paidInvoices} />
