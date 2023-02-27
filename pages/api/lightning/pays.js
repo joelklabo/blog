@@ -1,7 +1,8 @@
 import NextCors from "nextjs-cors";
 import LightningRPC from "@/lib/lightning/rpc";
-import { PaidInvoice } from "@/models/paidInvoice";
+import { NostrType, PaidInvoice } from "@/models/paidInvoice";
 import UsernameCache from "@/lib/util/usernameCache";
+import query from "@/lib/nostr/query";
 const path = require('path');
 
 export default async function handler(req, res) {
@@ -16,7 +17,8 @@ export default async function handler(req, res) {
 		optionsSuccessStatus: 200
 	})
 
-	await rpc.invoices().then((invoices) => {
+	await rpc.invoices()
+		.then( async (invoices) => {
 		const paidInvoices = invoices.filter((invoice) => {
 			return invoice.status === 'paid';
 		})
@@ -24,7 +26,39 @@ export default async function handler(req, res) {
 			return PaidInvoice(invoice, usernameCache);
 		})
 		.reverse();
-		res.status(200).json({ paidInvoices: paidInvoices});
+
+		// Find all invoices with a NostrType that don't have a username
+		const missingUsernames = paidInvoices.filter((invoice) => {
+			return invoice.type === NostrType && !invoice.username;
+		});
+			
+		if (missingUsernames.length > 0) {
+			console.log('Fetching usernames for ' + missingUsernames.length + ' invoices...')
+
+			const pubkeys = missingUsernames.map((invoice) => {
+				return invoice.pubkey;
+			});
+
+			const events = await query(missingUsernames.length, [0], pubkeys); 
+			console.log('Fetched ' + events.length + ' usernames.')
+
+			events.forEach((event) => {
+				const content = event.content
+				const json = JSON.parse(content)
+				const username = json.display_name || json.name
+				// check if username is undefined or null
+				if (username) {
+					usernameCache.set(event.pubkey, username);
+				}
+			});
+
+			console.log('Done fetching usernames.')
+			console.log('Returning ' + paidInvoices.length + ' invoices.')
+			res.status(200).json({ paidInvoices: paidInvoices});
+		} else {
+			res.status(200).json({ paidInvoices: paidInvoices});
+		}
+
 	}).catch((error) => {
 		res.status(400).json({ error: "Failed to get invoices" });
 	});

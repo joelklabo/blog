@@ -39,24 +39,6 @@ function NostrMessage({paidInvoice}) {
 			setDisplayName(paidInvoice.username);
 		} else {
 			setDisplayName(paidInvoice.pubkey.slice(0, 32) + '...');
-
-			const fetchUsername = async () => {
-				await query(1, [0], [paidInvoice.pubkey]).then((ev) => {
-					const content = ev.content
-					const json = JSON.parse(content)
-					const username = json.display_name || json.name
-					if (username) {
-						setDisplayName(username)
-					}
-				}).catch((err) => {
-					console.log(err)
-				});
-			}
-
-			fetchUsername()
-			.catch((err) => {
-				console.log(err)
-			});
 		}
 	}, []);
 	
