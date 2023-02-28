@@ -1,14 +1,12 @@
 import { DefaultType, KeysendType, NostrType, TipType } from "@/models/paidInvoice";
 import RelativeDate from "./relativeDate";
-import { useState, useEffect } from "react";
-import { query } from "@/lib/nostr/query";
 
 export default function PaidInvoice({paidInvoice}) {
 	return (
 		<tr className="bg-white border-b">
-			<th scope="row" className="px-6 py-4 font-medium text-gray-900">
+			<td scope="row" className="px-6 py-4 font-medium text-gray-900">
 				<RelativeDate dateString={paidInvoice.date} />
-			</th>
+			</td>
 			<td className="px-6 py-4 truncate break-words">
 			{(() => {
         switch (paidInvoice.type) {
@@ -31,17 +29,7 @@ export default function PaidInvoice({paidInvoice}) {
 }
 
 function NostrMessage({paidInvoice}) {
-
-	const [displayName, setDisplayName] = useState(paidInvoice.pubkey);
-
-	useEffect(() => {
-		if (paidInvoice.username) {
-			setDisplayName(paidInvoice.username);
-		} else {
-			setDisplayName(paidInvoice.pubkey.slice(0, 32) + '...');
-		}
-	}, []);
-	
+	const displayName = paidInvoice.username ? paidInvoice.username : paidInvoice.pubkey.slice(0, 32) + '...';
 	return (
 		<span>⚡️ Zap from <b>{displayName}</b></span>
 	)
