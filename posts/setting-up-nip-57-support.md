@@ -105,7 +105,7 @@ Here is an example of a kind `9735` zap note (containing the kind `9734` zap req
 
 ```
 
-This is the note your Zapper (in my case [cln-nostr-zapper]) sends to relays. The relays that the person sending the zap cares about are embedded in the zap request note so you can send the event to those to ensure they will see it.
+This is the note your Zapper (in my case [cln-nostr-zapper]) sends to relays (signed by you this time). The relays that the person sending the zap cares about are embedded in the zap request note so you can send the event to those to ensure they will see it.
 
 After you send the note, if your client supports it, you will see the zap in a notification or on the event itself.
 
@@ -123,6 +123,8 @@ I hope this clarifies some things for anyone trying to add support for this them
 If you enjoyed this you can follow me on [Nostr](nostr:2f4fa408d85b962d1fe717daae148a4c98424ab2e10c7dd11927e101ed3257b2).
 
 If you want to try something meta you can Zap my post where I share this and then see your Zap on the tip page, check it out here: [Note sharing this article]()
+
+FYI, if your username doesn't show up right away, reload the page. There is a cache of public keys to usernames that I populate on the backed.
 
 # References
 
