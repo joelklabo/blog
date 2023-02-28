@@ -1,6 +1,6 @@
 import NextCors from "nextjs-cors";
 import LightningRPC from "@/lib/lightning/rpc";
-import { NostrType, PaidInvoice } from "@/models/paidInvoice";
+import { KeysendType, NostrType, PaidInvoice, TipType } from "@/models/paidInvoice";
 import UsernameCache from "@/lib/util/usernameCache";
 import query from "@/lib/nostr/query";
 const path = require('path');
@@ -27,8 +27,13 @@ export default async function handler(req, res) {
 		})
 		.reverse();
 
+		// Filter out invoices that aren't tips
+		const onlyTipInvoices = paidInvoices.filter((invoice) => {
+			return invoice.type === NostrType || invoice.type === TipType || invoice.type === KeysendType;
+		});
+
 		// Find all invoices with a NostrType that don't have a username
-		const missingUsernames = paidInvoices.filter((invoice) => {
+		const missingUsernames = onlyTipInvoices.filter((invoice) => {
 			return invoice.type === NostrType && !invoice.username;
 		});
 			
@@ -54,9 +59,10 @@ export default async function handler(req, res) {
 
 			console.log('Done fetching usernames.')
 			console.log('Returning ' + paidInvoices.length + ' invoices.')
-			res.status(200).json({ paidInvoices: paidInvoices});
+			res.status(200).json({ paidInvoices: onlyTipInvoices});
+	
 		} else {
-			res.status(200).json({ paidInvoices: paidInvoices});
+			res.status(200).json({ paidInvoices: onlyTipInvoices});
 		}
 
 	}).catch((error) => {
