@@ -122,7 +122,7 @@ I hope this clarifies some things for anyone trying to add support for this them
 
 If you enjoyed this you can follow me on [Nostr](nostr:2f4fa408d85b962d1fe717daae148a4c98424ab2e10c7dd11927e101ed3257b2).
 
-If you want to try something meta you can Zap my post where I share this and then see your Zap on the tip page, check it out here: [Note sharing this article]()
+If you want to try something meta you can Zap my post where I share this and then see your Zap on the tip page, check it out here: [Note sharing this article](https://nostr.band/note1g7p02cp55jw5ejzkzapupptg9hujd8gccx6krdmeyspk3ljxvh8qyewtdw)
 
 FYI, if your username doesn't show up right away, reload the page. There is a cache of public keys to usernames that I populate on the backed.
 
