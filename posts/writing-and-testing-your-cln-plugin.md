@@ -141,7 +141,7 @@ The method there `wait_for_log` sounds like something I could use if I log my me
 
 First though, the test from `feeadjuster` simply tested that the plugin started. Which seems like a good one to have as well. So I will try and mimic that first.
 
-# Tsting that your plugin starts
+# Testing that your plugin starts
 
 Plugins can be `dynamic` or not. Meaning you can start them while `lightningd` is running, if they're dynamic. If not, you have to stop and start `lightningd` for it to pick it up. This test tries loading the plugin both ways. So, I did that same pattern.
 
