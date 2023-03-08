@@ -71,10 +71,7 @@ const fetchInvoinces = async () => {
 const dataFetcher = new DataFetcher('data/caching/pays.json', fetchInvoinces);
 
 export default async function handler(req, res) {
-	const rpc = new LightningRPC(`${process.env.LIGHTNING_RPC}`);
-  const usernameDataPath = path.join(process.cwd(), 'data/nostr/usernames.json');
-	const usernameCache = new UsernameCache(usernameDataPath);
-
+	
 	await NextCors(req, res, {
 		methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 		origin: '*',
